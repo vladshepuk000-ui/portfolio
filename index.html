@@ -8,158 +8,274 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         :root {
-            --bg: #fafafa;
-            --bg2: #f4f4f4;
-            --text: #111;
-            --muted: #666;
-            --border: #e5e5e5;
-            --accent: #111;
+            --bg: #07071a;
+            --bg2: #0f0f2a;
+            --text: #f0eeff;
+            --muted: #8b8aad;
+            --border: rgba(255,255,255,0.08);
+            --purple: #a855f7;
+            --purple2: #7c3aed;
+            --glass: rgba(255,255,255,0.04);
+            --glass-border: rgba(255,255,255,0.1);
         }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg); color: var(--text);
+            font-size: 15px; line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* BACKGROUND BLOBS */
+        .bg-blob {
+            position: fixed; border-radius: 50%; filter: blur(120px);
+            pointer-events: none; z-index: 0;
+        }
+        .bg-blob-1 {
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%);
+            top: -150px; left: -150px;
+        }
+        .bg-blob-2 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%);
+            bottom: 10%; right: -100px;
+        }
+        .bg-blob-3 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%);
+            top: 50%; left: 40%;
+        }
 
         /* NAV */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            background: rgba(250,250,250,0.9); backdrop-filter: blur(12px);
+            background: rgba(7,7,26,0.8); backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
-            padding: 0 5%; height: 56px;
+            padding: 0 5%; height: 60px;
             display: flex; align-items: center; justify-content: space-between;
         }
-        .nav-logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; letter-spacing: -0.3px; }
-        .nav-logo span { color: #666; }
+        .nav-logo {
+            font-size: 16px; font-weight: 700; color: var(--text);
+            text-decoration: none; letter-spacing: -0.3px;
+        }
+        .nav-logo span {
+            background: linear-gradient(90deg, #a855f7, #7c3aed);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
         .nav-links { display: flex; gap: 28px; }
-        .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.15s; }
+        .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
         .nav-links a:hover { color: var(--text); }
         .nav-cta {
-            background: var(--text); color: #fff; padding: 7px 16px; border-radius: 6px;
-            text-decoration: none; font-size: 13px; font-weight: 500; transition: opacity 0.15s;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff; padding: 8px 18px; border-radius: 8px;
+            text-decoration: none; font-size: 13px; font-weight: 600;
+            transition: opacity 0.2s; box-shadow: 0 0 20px rgba(168,85,247,0.3);
         }
-        .nav-cta:hover { opacity: 0.8; }
+        .nav-cta:hover { opacity: 0.85; }
 
         /* BURGER */
         .burger-btn {
-            display: none; flex-direction: column; gap: 4px;
+            display: none; flex-direction: column; gap: 5px;
             background: none; border: none; cursor: pointer; padding: 6px;
         }
         .burger-btn span {
-            display: block; width: 20px; height: 1.5px; background: var(--text); border-radius: 2px;
+            display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px;
             transition: transform 0.25s ease, opacity 0.25s ease; transform-origin: center;
         }
-        .burger-btn.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+        .burger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
         .burger-btn.open span:nth-child(2) { opacity: 0; }
-        .burger-btn.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+        .burger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
         /* DRAWER */
-        .drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 199; }
+        .drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 199; }
         .drawer-overlay.open { display: block; }
         .mobile-menu {
             position: fixed; top: 0; left: -280px; width: 260px; height: 100vh;
-            background: var(--bg); z-index: 200; display: flex; flex-direction: column;
+            background: #0d0d24; z-index: 200; display: flex; flex-direction: column;
             transition: left 0.3s ease; border-right: 1px solid var(--border);
         }
         .mobile-menu.open { left: 0; }
         .mobile-menu-header {
-            padding: 16px 20px; border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between; height: 56px;
+            padding: 0 20px; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between; height: 60px;
         }
-        .mobile-menu-close { background: none; border: 1px solid var(--border); color: var(--text); width: 28px; height: 28px; border-radius: 4px; font-size: 16px; cursor: pointer; }
+        .mobile-menu-close {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            color: var(--text); width: 30px; height: 30px; border-radius: 6px;
+            font-size: 14px; cursor: pointer;
+        }
         .drawer-nav { flex: 1; padding: 8px 0; }
         .drawer-nav a {
-            display: block; color: var(--muted); text-decoration: none; font-size: 14px;
-            padding: 12px 20px; border-bottom: 1px solid var(--border); transition: color 0.15s;
+            display: block; color: var(--muted); text-decoration: none; font-size: 15px;
+            padding: 14px 20px; border-bottom: 1px solid var(--border); transition: color 0.2s;
         }
         .drawer-nav a:hover { color: var(--text); }
         .mobile-menu-footer { padding: 20px; }
         .mobile-menu-footer a {
-            display: block; background: var(--text); color: #fff; text-align: center;
-            padding: 10px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500;
+            display: block; background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff; text-align: center; padding: 12px; border-radius: 8px;
+            text-decoration: none; font-size: 14px; font-weight: 600;
         }
 
         /* HERO */
         .hero {
             min-height: 100vh; display: flex; align-items: center;
-            padding: 80px 5% 60px; max-width: 900px; margin: 0 auto;
+            padding: 100px 5% 80px; max-width: 1000px; margin: 0 auto;
+            position: relative; z-index: 1;
         }
-        .hero-content { max-width: 600px; }
-        .hero-tag { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
-        .hero-tag::before { content: ''; width: 5px; height: 5px; background: #22c55e; border-radius: 50%; }
-        .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 700; line-height: 1.1; letter-spacing: -2px; margin-bottom: 20px; color: var(--text); }
-        .hero h1 span { color: var(--muted); }
-        .hero p { font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 36px; max-width: 460px; }
-        .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-        .btn-dark { background: var(--text); color: #fff; padding: 10px 22px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500; transition: opacity 0.15s; }
-        .btn-dark:hover { opacity: 0.8; }
-        .btn-light { background: transparent; color: var(--text); padding: 10px 22px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500; border: 1px solid var(--border); transition: border-color 0.15s; }
-        .btn-light:hover { border-color: #999; }
+        .hero-content { max-width: 680px; }
+        .hero-tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2);
+            color: #c084fc; padding: 6px 14px; border-radius: 20px;
+            font-size: 12px; font-weight: 500; letter-spacing: 0.5px;
+            margin-bottom: 28px;
+        }
+        .hero-tag::before { content: ''; width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 6px #22c55e; }
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 80px); font-weight: 800;
+            line-height: 1.05; letter-spacing: -3px; margin-bottom: 20px;
+        }
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 50%, #6366f1 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 40px; max-width: 500px; }
+        .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn-primary {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff; padding: 12px 28px; border-radius: 10px;
+            text-decoration: none; font-size: 15px; font-weight: 600;
+            transition: all 0.2s; box-shadow: 0 0 30px rgba(168,85,247,0.35);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(168,85,247,0.5); }
+        .btn-secondary {
+            background: var(--glass); color: var(--text);
+            padding: 12px 28px; border-radius: 10px;
+            text-decoration: none; font-size: 15px; font-weight: 500;
+            border: 1px solid var(--glass-border); transition: all 0.2s;
+            backdrop-filter: blur(8px);
+        }
+        .btn-secondary:hover { border-color: rgba(168,85,247,0.4); background: rgba(168,85,247,0.08); }
 
-        /* SECTION */
-        section { padding: 80px 5%; border-top: 1px solid var(--border); }
-        .section-inner { max-width: 900px; margin: 0 auto; }
-        .section-tag { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 32px; }
-        .section-title { font-size: clamp(24px, 3vw, 36px); font-weight: 700; letter-spacing: -1px; margin-bottom: 16px; }
+        /* SECTIONS */
+        section { padding: 100px 5%; position: relative; z-index: 1; }
+        .section-inner { max-width: 1000px; margin: 0 auto; }
+        .section-label {
+            display: inline-block; font-size: 11px; font-weight: 600;
+            color: #a855f7; text-transform: uppercase; letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(28px, 4vw, 44px); font-weight: 800;
+            letter-spacing: -1.5px; margin-bottom: 48px; line-height: 1.1;
+        }
+
+        /* GLASS CARD */
+        .glass-card {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 16px; backdrop-filter: blur(12px);
+            transition: all 0.3s;
+        }
+        .glass-card:hover { border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.05); }
 
         /* ABOUT */
-        .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start; margin-top: 40px; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: start; }
         .about-photo {
-            aspect-ratio: 1; border-radius: 12px; background: var(--bg2);
-            border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 64px;
+            aspect-ratio: 1; border-radius: 20px;
+            background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(168,85,247,0.1));
+            border: 1px solid rgba(168,85,247,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 72px;
         }
-        .about-text p { color: var(--muted); font-size: 15px; line-height: 1.8; margin-bottom: 14px; }
-        .skills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
-        .skill { background: var(--bg2); border: 1px solid var(--border); color: var(--text); padding: 4px 12px; border-radius: 4px; font-size: 12px; }
+        .about-text p { color: var(--muted); font-size: 15px; line-height: 1.85; margin-bottom: 14px; }
+        .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+        .skill {
+            background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2);
+            color: #c084fc; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+        }
 
         /* CASES */
-        .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 40px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-        .case-card { background: var(--bg); padding: 28px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); transition: background 0.15s; }
-        .case-card:hover { background: var(--bg2); }
-        .case-tag { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .case-title { font-size: 17px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.3px; }
-        .case-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
-        .case-stack { display: flex; flex-wrap: wrap; gap: 4px; }
-        .case-chip { background: var(--bg2); border: 1px solid var(--border); color: var(--muted); padding: 2px 8px; border-radius: 3px; font-size: 11px; }
+        .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .case-card { padding: 32px; }
+        .case-num { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+        .case-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .case-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+        .case-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+        .case-chip {
+            background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2);
+            color: #818cf8; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 500;
+        }
+        .case-card.highlight {
+            background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(168,85,247,0.06));
+            border-color: rgba(168,85,247,0.25);
+        }
 
         /* SERVICES */
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 40px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-        .service-card { background: var(--bg); padding: 28px; border-right: 1px solid var(--border); }
-        .service-card:last-child { border-right: none; }
-        .service-icon { font-size: 28px; margin-bottom: 16px; }
-        .service-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.3px; }
-        .service-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
-        .service-price { font-size: 18px; font-weight: 700; color: var(--text); }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .service-card { padding: 32px; }
+        .service-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(168,85,247,0.1));
+            border: 1px solid rgba(168,85,247,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; margin-bottom: 20px;
+        }
+        .service-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+        .service-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
+        .service-list { list-style: none; margin-bottom: 22px; }
+        .service-list li {
+            font-size: 13px; color: var(--muted); padding: 7px 0;
+            border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: center;
+        }
+        .service-list li::before { content: '→'; color: #a855f7; flex-shrink: 0; font-size: 12px; }
+        .service-price { font-size: 22px; font-weight: 800; }
+        .service-price .price-gradient {
+            background: linear-gradient(90deg, #a855f7, #7c3aed);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
         .service-price span { font-size: 12px; font-weight: 400; color: var(--muted); }
-        .service-list { list-style: none; margin-bottom: 20px; }
-        .service-list li { font-size: 12px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 6px; }
-        .service-list li::before { content: '→'; color: var(--text); flex-shrink: 0; }
 
         /* CONTACTS */
-        .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 40px; }
-        .contact-links { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+        .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .contact-intro p { color: var(--muted); font-size: 16px; line-height: 1.8; margin-bottom: 28px; }
+        .contact-links { display: flex; flex-direction: column; gap: 10px; }
         .contact-link {
-            display: flex; align-items: center; gap: 10px;
-            border: 1px solid var(--border); padding: 12px 16px; border-radius: 6px;
-            text-decoration: none; color: var(--muted); font-size: 14px; transition: all 0.15s;
+            display: flex; align-items: center; gap: 12px;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            padding: 14px 18px; border-radius: 12px;
+            text-decoration: none; color: var(--text); font-size: 14px;
+            transition: all 0.2s; backdrop-filter: blur(8px);
         }
-        .contact-link:hover { border-color: var(--text); color: var(--text); }
-
-        /* FORM */
-        .contact-form { display: flex; flex-direction: column; gap: 12px; }
-        .form-group { display: flex; flex-direction: column; gap: 4px; }
-        .form-group label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+        .contact-link:hover { border-color: rgba(168,85,247,0.35); background: rgba(168,85,247,0.06); }
+        .contact-form { display: flex; flex-direction: column; gap: 14px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; }
         .form-control {
-            background: var(--bg); border: 1px solid var(--border); color: var(--text);
-            padding: 10px 12px; border-radius: 6px; font-size: 14px; outline: none; transition: border 0.15s; font-family: inherit;
+            background: var(--glass); border: 1px solid var(--glass-border); color: var(--text);
+            padding: 12px 14px; border-radius: 10px; font-size: 14px; outline: none;
+            transition: border 0.2s; font-family: inherit; backdrop-filter: blur(8px);
         }
-        .form-control:focus { border-color: var(--text); }
-        textarea.form-control { resize: vertical; min-height: 100px; }
-        .form-submit { background: var(--text); color: #fff; padding: 11px; border-radius: 6px; border: none; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; transition: opacity 0.15s; }
-        .form-submit:hover { opacity: 0.8; }
-        .form-success { display: none; padding: 20px; text-align: center; color: var(--muted); font-size: 14px; border: 1px solid var(--border); border-radius: 6px; }
+        .form-control::placeholder { color: var(--muted); }
+        .form-control:focus { border-color: rgba(168,85,247,0.4); }
+        textarea.form-control { resize: vertical; min-height: 110px; }
+        .form-submit {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff; padding: 13px; border-radius: 10px; border: none;
+            font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
+            transition: all 0.2s; box-shadow: 0 0 24px rgba(168,85,247,0.3);
+        }
+        .form-submit:hover { transform: translateY(-1px); box-shadow: 0 0 36px rgba(168,85,247,0.45); }
+        .form-success { display: none; padding: 24px; text-align: center; color: #22c55e; font-size: 15px; background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.2); border-radius: 10px; }
+
+        /* DIVIDER */
+        .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
 
         /* FOOTER */
-        footer { border-top: 1px solid var(--border); padding: 24px 5%; }
-        .footer-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 28px 5%; }
+        .footer-inner { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         footer p { font-size: 13px; color: var(--muted); }
-        footer a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.15s; }
+        footer a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
         footer a:hover { color: var(--text); }
 
         /* MOBILE */
@@ -167,29 +283,34 @@
             .nav-links, .nav-cta { display: none; }
             .burger-btn { display: flex; }
             nav { padding: 0 20px; }
-            section { padding: 56px 20px; }
-            .hero { padding: 72px 20px 48px; }
-            .about-grid { grid-template-columns: 1fr; gap: 32px; }
-            .about-photo { max-width: 160px; }
+            section { padding: 72px 20px; }
+            .hero { padding: 90px 20px 60px; }
+            .about-grid { grid-template-columns: 1fr; gap: 28px; }
+            .about-photo { max-width: 140px; font-size: 56px; }
             .cases-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
-            .contacts-grid { grid-template-columns: 1fr; gap: 32px; }
-            .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
+            .contacts-grid { grid-template-columns: 1fr; gap: 36px; }
+            .footer-inner { flex-direction: column; gap: 10px; text-align: center; }
+            .bg-blob { opacity: 0.6; }
         }
     </style>
 </head>
 <body>
 
+<div class="bg-blob bg-blob-1"></div>
+<div class="bg-blob bg-blob-2"></div>
+<div class="bg-blob bg-blob-3"></div>
+
 <!-- NAV -->
 <nav>
-    <a href="#hero" class="nav-logo">Влад Шипук</a>
+    <a href="#hero" class="nav-logo">Влад <span>Шипук</span></a>
     <div class="nav-links">
         <a href="#about">Про мене</a>
         <a href="#cases">Кейси</a>
         <a href="#services">Послуги</a>
         <a href="#contacts">Контакти</a>
     </div>
-    <div style="display:flex;align-items:center;gap:10px;">
+    <div style="display:flex;align-items:center;gap:12px;">
         <a href="#contacts" class="nav-cta">Написати</a>
         <button class="burger-btn" id="burgerBtn" onclick="toggleMenu()">
             <span></span><span></span><span></span>
@@ -201,7 +322,7 @@
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeMenu()"></div>
 <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-menu-header">
-        <a href="#hero" class="nav-logo" onclick="closeMenu()">Влад Шипук</a>
+        <a href="#hero" class="nav-logo" onclick="closeMenu()">Влад <span>Шипук</span></a>
         <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
     </div>
     <div class="drawer-nav">
@@ -219,23 +340,25 @@
 <div class="hero" id="hero">
     <div class="hero-content">
         <div class="hero-tag">Доступний для проектів</div>
-        <h1>Влад<br><span>Шипук.</span></h1>
-        <p>Розробляю Telegram-ботів, веб-сайти та автоматизації. Від ідеї до готового продукту.</p>
+        <h1>Влад<br><span class="gradient-text">Шипук.</span></h1>
+        <p>Розробляю Telegram-ботів, веб-сайти та автоматизації.<br>Від ідеї до готового продукту.</p>
         <div class="hero-btns">
-            <a href="#cases" class="btn-dark">Переглянути кейси</a>
-            <a href="#contacts" class="btn-light">Зв'язатися</a>
+            <a href="#cases" class="btn-primary">Переглянути кейси</a>
+            <a href="#contacts" class="btn-secondary">Зв'язатися</a>
         </div>
     </div>
 </div>
 
+<hr class="section-divider">
+
 <!-- ABOUT -->
 <section id="about">
     <div class="section-inner">
-        <div class="section-tag">Про мене</div>
+        <div class="section-label">Про мене</div>
+        <div class="section-title">Хто я такий</div>
         <div class="about-grid">
             <div class="about-photo">👨‍💻</div>
             <div class="about-text">
-                <div class="section-title">Хто я такий</div>
                 <p>Привіт! Мене звати Влад, я розробник з Великої Михайлівки. Займаюся створенням Telegram-ботів, веб-сайтів та автоматизацією бізнес-процесів.</p>
                 <p>Починав з простих скриптів, зараз розробляю повноцінні продукти — від інтернет-магазинів до CRM-систем у Telegram.</p>
                 <p>Ціную чистий код, швидкий результат і чесну комунікацію з клієнтами.</p>
@@ -253,27 +376,30 @@
     </div>
 </section>
 
+<hr class="section-divider">
+
 <!-- CASES -->
 <section id="cases">
     <div class="section-inner">
-        <div class="section-tag">Кейси</div>
+        <div class="section-label">Кейси</div>
         <div class="section-title">Що я вже зробив</div>
         <div class="cases-grid">
-            <div class="case-card">
-                <div class="case-tag">Telegram бот + Веб</div>
+            <div class="case-card glass-card highlight">
+                <div class="case-num">01 — Telegram бот + Веб</div>
                 <div class="case-title">Vape Shop — інтернет-магазин</div>
-                <div class="case-desc">Повноцінний магазин у Telegram з каталогом, кошиком, замовленнями, відгуками та адмін-панеллю. Публічний сайт з онлайн-замовленням.</div>
+                <div class="case-desc">Повноцінний магазин у Telegram з каталогом, кошиком, замовленнями та відгуками. Публічний сайт з онлайн-замовленням, адмін-панель, AI-асистент.</div>
                 <div class="case-stack">
                     <span class="case-chip">Python</span>
                     <span class="case-chip">aiogram</span>
                     <span class="case-chip">FastAPI</span>
                     <span class="case-chip">SQLite</span>
+                    <span class="case-chip">Groq AI</span>
                 </div>
             </div>
-            <div class="case-card">
-                <div class="case-tag">Наступний проект</div>
+            <div class="case-card glass-card">
+                <div class="case-num">02 — Наступний проект</div>
                 <div class="case-title">Твій проект тут</div>
-                <div class="case-desc">Зв'яжись — обговоримо деталі та зробимо крутий продукт разом.</div>
+                <div class="case-desc">Зв'яжись — обговоримо деталі та зробимо крутий продукт разом. Беруся за будь-яку задачу.</div>
                 <div class="case-stack">
                     <span class="case-chip">Будь-який стек</span>
                 </div>
@@ -282,13 +408,15 @@
     </div>
 </section>
 
+<hr class="section-divider">
+
 <!-- SERVICES -->
 <section id="services">
     <div class="section-inner">
-        <div class="section-tag">Послуги</div>
+        <div class="section-label">Послуги</div>
         <div class="section-title">Чим можу допомогти</div>
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card glass-card">
                 <div class="service-icon">🤖</div>
                 <div class="service-title">Telegram бот</div>
                 <div class="service-desc">Бот для бізнесу: каталог, замовлення, сповіщення, адмін-панель.</div>
@@ -298,9 +426,9 @@
                     <li>Сповіщення адміну</li>
                     <li>Розсилки клієнтам</li>
                 </ul>
-                <div class="service-price">від 500 грн <span>/ проект</span></div>
+                <div class="service-price"><span class="price-gradient">від 500 грн</span> <span>/ проект</span></div>
             </div>
-            <div class="service-card">
+            <div class="service-card glass-card">
                 <div class="service-icon">🌐</div>
                 <div class="service-title">Сайт + Бот</div>
                 <div class="service-desc">Публічний сайт з каталогом і формою замовлення + Telegram бот.</div>
@@ -310,9 +438,9 @@
                     <li>Telegram бот</li>
                     <li>Адмін-панель</li>
                 </ul>
-                <div class="service-price">від 1500 грн <span>/ проект</span></div>
+                <div class="service-price"><span class="price-gradient">від 1500 грн</span> <span>/ проект</span></div>
             </div>
-            <div class="service-card">
+            <div class="service-card glass-card">
                 <div class="service-icon">⚡</div>
                 <div class="service-title">Автоматизація</div>
                 <div class="service-desc">Розсилки, нагадування, звіти, інтеграції з API.</div>
@@ -322,20 +450,22 @@
                     <li>Щоденні звіти</li>
                     <li>Інтеграція з AI</li>
                 </ul>
-                <div class="service-price">від 300 грн <span>/ проект</span></div>
+                <div class="service-price"><span class="price-gradient">від 300 грн</span> <span>/ проект</span></div>
             </div>
         </div>
     </div>
 </section>
 
+<hr class="section-divider">
+
 <!-- CONTACTS -->
 <section id="contacts">
     <div class="section-inner">
-        <div class="section-tag">Контакти</div>
+        <div class="section-label">Контакти</div>
         <div class="section-title">Напиши мені</div>
         <div class="contacts-grid">
-            <div>
-                <p style="color:var(--muted); font-size:15px; line-height:1.7; margin-bottom:8px;">Є ідея або проект? Пиши — відповім протягом кількох годин.</p>
+            <div class="contact-intro">
+                <p>Є ідея або проект? Пиши — відповім протягом кількох годин.</p>
                 <div class="contact-links">
                     <a href="https://t.me/Vlad_shepuk" target="_blank" class="contact-link">✈️ &nbsp;@Vlad_shepuk</a>
                     <a href="tel:+380981256254" class="contact-link">📞 &nbsp;+380 98 125 62 54</a>
@@ -387,8 +517,7 @@ function closeMenu() {
     document.getElementById('drawerOverlay').classList.remove('open');
     document.body.style.overflow = '';
 }
-
-document.getElementById('contactForm').addEventListener('submit', async function(e) {
+document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     document.getElementById('contactForm').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
