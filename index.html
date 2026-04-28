@@ -210,6 +210,22 @@
             background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(168,85,247,0.06));
             border-color: rgba(168,85,247,0.25);
         }
+        .case-links { display: flex; gap: 8px; margin-top: 18px; }
+        .case-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 500;
+            text-decoration: none; transition: all 0.2s;
+        }
+        .case-link-github {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--muted);
+        }
+        .case-link-github:hover { border-color: rgba(255,255,255,0.25); color: var(--text); }
+        .case-link-site {
+            background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2);
+            color: #c084fc;
+        }
+        .case-link-site:hover { background: rgba(168,85,247,0.18); }
 
         /* SERVICES */
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -395,13 +411,32 @@
                     <span class="case-chip">SQLite</span>
                     <span class="case-chip">Groq AI</span>
                 </div>
+                <div class="case-links">
+                    <a href="https://github.com/vladshepuk000-ui/telegram-bot-funeral" target="_blank" class="case-link case-link-github">⌥ GitHub</a>
+                </div>
             </div>
             <div class="case-card glass-card">
-                <div class="case-num">02 — Наступний проект</div>
+                <div class="case-num">02 — Telegram бот</div>
+                <div class="case-title">Похоронне агентство — бот</div>
+                <div class="case-desc">Telegram-бот для похоронного агентства: каталог послуг, оформлення заявок, сповіщення адміну, база клієнтів.</div>
+                <div class="case-stack">
+                    <span class="case-chip">Python</span>
+                    <span class="case-chip">aiogram</span>
+                    <span class="case-chip">SQLite</span>
+                </div>
+                <div class="case-links">
+                    <a href="https://github.com/vladshepuk000-ui/telegram-bot-funeral" target="_blank" class="case-link case-link-github">⌥ GitHub</a>
+                </div>
+            </div>
+            <div class="case-card glass-card">
+                <div class="case-num">03 — Наступний проект</div>
                 <div class="case-title">Твій проект тут</div>
                 <div class="case-desc">Зв'яжись — обговоримо деталі та зробимо крутий продукт разом. Беруся за будь-яку задачу.</div>
                 <div class="case-stack">
                     <span class="case-chip">Будь-який стек</span>
+                </div>
+                <div class="case-links">
+                    <a href="https://t.me/Vlad_shepuk" target="_blank" class="case-link case-link-site">✈️ Написати</a>
                 </div>
             </div>
         </div>
