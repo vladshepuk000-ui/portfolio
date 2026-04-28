@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Влад Шипук — Розробник</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0f; color: #e2e8f0; }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(10,10,15,0.85); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 0 5%; height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo { font-size: 18px; font-weight: 700; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-logo span { color: #7c3aed; }
+        .nav-links { display: flex; gap: 32px; }
+        .nav-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .nav-links a:hover { color: #fff; }
+        .nav-cta {
+            background: #7c3aed; color: #fff; padding: 8px 20px; border-radius: 8px;
+            text-decoration: none; font-size: 14px; font-weight: 600; transition: background 0.2s;
+        }
+        .nav-cta:hover { background: #6d28d9; }
+
+        /* BURGER */
+        .burger-btn {
+            display: none; flex-direction: column; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 6px;
+        }
+        .burger-btn span {
+            display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease; transform-origin: center;
+        }
+        .burger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .burger-btn.open span:nth-child(2) { opacity: 0; }
+        .burger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* MOBILE MENU */
+        .mobile-menu {
+            position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
+            background: rgba(10,10,15,0.98); backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex; flex-direction: column;
+            transform: translateY(-8px); opacity: 0; pointer-events: none;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+        .mobile-menu a {
+            color: rgba(255,255,255,0.7); text-decoration: none; font-size: 15px;
+            padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); transition: color 0.2s;
+        }
+        .mobile-menu a:hover { color: #fff; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 80px 5% 60px; text-align: center; position: relative; overflow: hidden;
+            background: radial-gradient(ellipse at 50% 40%, rgba(124,58,237,0.18) 0%, transparent 65%);
+        }
+        .hero-content { max-width: 680px; position: relative; z-index: 1; }
+        .hero-tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(124,58,237,0.12); border: 1px solid rgba(124,58,237,0.3);
+            color: #a78bfa; padding: 6px 16px; border-radius: 20px;
+            font-size: 13px; font-weight: 600; margin-bottom: 28px;
+        }
+        .hero-tag::before { content: ''; width: 6px; height: 6px; background: #7c3aed; border-radius: 50%; animation: pulse 2s infinite; }
+        .hero h1 {
+            font-size: clamp(40px, 7vw, 72px); font-weight: 800; color: #fff;
+            line-height: 1.1; letter-spacing: -2px; margin-bottom: 20px;
+        }
+        .hero h1 span { color: #7c3aed; }
+        .hero p { font-size: 18px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 40px; }
+        .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            background: #7c3aed; color: #fff; padding: 13px 28px; border-radius: 10px;
+            text-decoration: none; font-size: 15px; font-weight: 600; transition: all 0.2s;
+        }
+        .btn-primary:hover { background: #6d28d9; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+        .btn-outline {
+            background: transparent; color: #fff; padding: 13px 28px; border-radius: 10px;
+            text-decoration: none; font-size: 15px; font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.15); transition: all 0.2s;
+        }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.05); }
+        .hero-scroll {
+            position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+            color: rgba(255,255,255,0.3); font-size: 13px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+        }
+        .hero-scroll::after { content: ''; width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+
+        /* SECTION BASE */
+        section { padding: 100px 5%; }
+        .section-inner { max-width: 1100px; margin: 0 auto; }
+        .section-tag { color: #7c3aed; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: #fff; letter-spacing: -1px; margin-bottom: 16px; }
+        .section-sub { font-size: 17px; color: rgba(255,255,255,0.45); line-height: 1.7; max-width: 520px; }
+
+        /* ABOUT */
+        #about { background: #0d0d14; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 64px; }
+        .about-photo {
+            width: 100%; aspect-ratio: 1; border-radius: 20px;
+            background: linear-gradient(135deg, #1e1b4b, #2e1065);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 80px; border: 1px solid rgba(124,58,237,0.2);
+        }
+        .about-text p { color: rgba(255,255,255,0.6); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
+        .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+        .skill {
+            background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.25);
+            color: #a78bfa; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 500;
+        }
+
+        /* CASES */
+        #cases { background: #0a0a0f; }
+        .cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-top: 64px; }
+        .case-card {
+            background: #0d0d14; border: 1px solid rgba(255,255,255,0.07); border-radius: 16px;
+            overflow: hidden; transition: all 0.3s; text-decoration: none; color: inherit; display: block;
+        }
+        .case-card:hover { border-color: rgba(124,58,237,0.4); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+        .case-preview {
+            height: 200px; display: flex; align-items: center; justify-content: center;
+            font-size: 56px; border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .case-body { padding: 24px; }
+        .case-tag { font-size: 11px; font-weight: 700; color: #7c3aed; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .case-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .case-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.6; margin-bottom: 16px; }
+        .case-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+        .case-chip { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); padding: 4px 10px; border-radius: 4px; font-size: 12px; }
+
+        /* SERVICES */
+        #services { background: #0d0d14; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 64px; }
+        .service-card {
+            background: #0a0a0f; border: 1px solid rgba(255,255,255,0.07); border-radius: 16px;
+            padding: 32px; transition: all 0.3s;
+        }
+        .service-card:hover { border-color: rgba(124,58,237,0.35); }
+        .service-card.featured {
+            border-color: rgba(124,58,237,0.4); background: rgba(124,58,237,0.06);
+        }
+        .service-icon { font-size: 36px; margin-bottom: 20px; }
+        .service-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+        .service-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; margin-bottom: 20px; }
+        .service-price { font-size: 22px; font-weight: 800; color: #7c3aed; }
+        .service-price span { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.3); }
+        .service-list { list-style: none; margin-bottom: 24px; }
+        .service-list li { font-size: 13px; color: rgba(255,255,255,0.5); padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 8px; }
+        .service-list li::before { content: '✓'; color: #7c3aed; font-weight: 700; flex-shrink: 0; }
+
+        /* CONTACTS */
+        #contacts { background: #0a0a0f; }
+        .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 64px; }
+        .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+        .contact-link {
+            display: flex; align-items: center; gap: 12px;
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            padding: 14px 20px; border-radius: 12px; text-decoration: none;
+            color: rgba(255,255,255,0.7); font-size: 15px; transition: all 0.2s;
+        }
+        .contact-link:hover { border-color: rgba(124,58,237,0.4); color: #fff; background: rgba(124,58,237,0.07); }
+        .contact-link .icon { font-size: 20px; flex-shrink: 0; }
+
+        /* FORM */
+        .contact-form { display: flex; flex-direction: column; gap: 14px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 500; }
+        .form-control {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+            color: #fff; padding: 11px 14px; border-radius: 10px; font-size: 14px;
+            outline: none; transition: border 0.2s; font-family: inherit;
+        }
+        .form-control:focus { border-color: #7c3aed; }
+        .form-control::placeholder { color: rgba(255,255,255,0.25); }
+        textarea.form-control { resize: vertical; min-height: 110px; }
+        .form-submit {
+            background: #7c3aed; color: #fff; padding: 13px; border-radius: 10px;
+            border: none; font-size: 15px; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; font-family: inherit;
+        }
+        .form-submit:hover { background: #6d28d9; }
+        .form-success { display: none; text-align: center; padding: 24px; color: #a78bfa; font-size: 15px; }
+
+        /* FOOTER */
+        footer {
+            background: #080810; border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 24px 5%; text-align: center;
+        }
+        footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
+        footer span { color: #7c3aed; }
+
+        /* ANIMATIONS */
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .nav-links, .nav-cta { display: none; }
+            .burger-btn { display: flex; }
+            nav { padding: 0 20px; }
+            section { padding: 64px 20px; }
+            .hero h1 { letter-spacing: -1px; }
+            .hero p { font-size: 15px; }
+            .about-grid, .contacts-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-photo { max-width: 280px; }
+            .cases-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="#hero" class="nav-logo">Влад<span>.</span></a>
+    <div class="nav-links">
+        <a href="#about">Про мене</a>
+        <a href="#cases">Кейси</a>
+        <a href="#services">Послуги</a>
+        <a href="#contacts">Контакти</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+        <a href="#contacts" class="nav-cta">Написати</a>
+        <button class="burger-btn" id="burgerBtn" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMenu()">Про мене</a>
+    <a href="#cases" onclick="closeMenu()">Кейси</a>
+    <a href="#services" onclick="closeMenu()">Послуги</a>
+    <a href="#contacts" onclick="closeMenu()">Контакти</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" class="hero">
+    <div class="hero-content">
+        <div class="hero-tag">Доступний для проектів</div>
+        <h1>Влад<br><span>Шипук</span></h1>
+        <p>Розробляю Telegram-ботів, веб-сайти та автоматизації.<br>Від ідеї до готового продукту.</p>
+        <div class="hero-btns">
+            <a href="#cases" class="btn-primary">Переглянути кейси</a>
+            <a href="#contacts" class="btn-outline">Зв'язатися</a>
+        </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="section-inner">
+        <div class="section-tag">Про мене</div>
+        <div class="section-title">Хто я такий</div>
+        <div class="about-grid fade-in">
+            <div class="about-photo">👨‍💻</div>
+            <div class="about-text">
+                <p>Привіт! Мене звати Влад, я розробник з Великої Михайлівки. Займаюся створенням Telegram-ботів, веб-сайтів та автоматизацією бізнес-процесів.</p>
+                <p>Починав з простих скриптів, зараз розробляю повноцінні продукти — від інтернет-магазинів до CRM-систем у Telegram.</p>
+                <p>Ціную чистий код, швидкий результат і чесну комунікацію з клієнтами.</p>
+                <div class="skills">
+                    <span class="skill">Python</span>
+                    <span class="skill">aiogram</span>
+                    <span class="skill">FastAPI</span>
+                    <span class="skill">SQLite</span>
+                    <span class="skill">HTML/CSS</span>
+                    <span class="skill">JavaScript</span>
+                    <span class="skill">ngrok</span>
+                    <span class="skill">Git</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CASES -->
+<section id="cases">
+    <div class="section-inner">
+        <div class="section-tag">Кейси</div>
+        <div class="section-title">Що я вже зробив</div>
+        <div class="section-sub">Реальні проекти з реальними результатами</div>
+        <div class="cases-grid">
+            <div class="case-card fade-in">
+                <div class="case-preview" style="background:linear-gradient(135deg,#1e1b4b,#2e1065);">🛒</div>
+                <div class="case-body">
+                    <div class="case-tag">Telegram бот + Веб</div>
+                    <div class="case-title">Vape Shop — інтернет-магазин</div>
+                    <div class="case-desc">Повноцінний магазин у Telegram з каталогом, кошиком, замовленнями, відгуками та адмін-панеллю. Публічний сайт з онлайн-замовленням.</div>
+                    <div class="case-stack">
+                        <span class="case-chip">Python</span>
+                        <span class="case-chip">aiogram</span>
+                        <span class="case-chip">FastAPI</span>
+                        <span class="case-chip">SQLite</span>
+                    </div>
+                </div>
+            </div>
+            <div class="case-card fade-in" style="cursor:default;">
+                <div class="case-preview" style="background:linear-gradient(135deg,#0f2027,#203a43);">⚙️</div>
+                <div class="case-body">
+                    <div class="case-tag">Автоматизація</div>
+                    <div class="case-title">Твій наступний проект</div>
+                    <div class="case-desc">Тут з'явиться твій кейс. Зв'яжись — обговоримо деталі та зробимо крутий продукт разом.</div>
+                    <div class="case-stack">
+                        <span class="case-chip">Будь-який стек</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+    <div class="section-inner">
+        <div class="section-tag">Послуги</div>
+        <div class="section-title">Чим можу допомогти</div>
+        <div class="section-sub">Вибери що тобі потрібно — зроблю швидко і якісно</div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">🤖</div>
+                <div class="service-title">Telegram бот</div>
+                <div class="service-desc">Бот для бізнесу: каталог, замовлення, оплата, сповіщення, адмін-панель.</div>
+                <ul class="service-list">
+                    <li>Каталог товарів/послуг</li>
+                    <li>Прийом замовлень</li>
+                    <li>Сповіщення адміну</li>
+                    <li>Розсилки клієнтам</li>
+                </ul>
+                <div class="service-price">від 500 грн <span>/ проект</span></div>
+            </div>
+            <div class="service-card featured fade-in">
+                <div class="service-icon">🌐</div>
+                <div class="service-title">Сайт + Бот</div>
+                <div class="service-desc">Публічний сайт з каталогом, кошиком та формою замовлення + Telegram бот.</div>
+                <ul class="service-list">
+                    <li>Адаптивний сайт</li>
+                    <li>Онлайн-замовлення</li>
+                    <li>Telegram бот</li>
+                    <li>Адмін-панель</li>
+                    <li>Налаштування та деплой</li>
+                </ul>
+                <div class="service-price">від 1500 грн <span>/ проект</span></div>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">⚡</div>
+                <div class="service-title">Автоматизація</div>
+                <div class="service-desc">Автоматичні розсилки, нагадування, звіти, інтеграції з API.</div>
+                <ul class="service-list">
+                    <li>Розклад розсилок</li>
+                    <li>Авто-нагадування</li>
+                    <li>Щоденні/тижневі звіти</li>
+                    <li>Інтеграція з Groq AI</li>
+                </ul>
+                <div class="service-price">від 300 грн <span>/ проект</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACTS -->
+<section id="contacts">
+    <div class="section-inner">
+        <div class="section-tag">Контакти</div>
+        <div class="section-title">Напиши мені</div>
+        <div class="contacts-grid">
+            <div>
+                <div class="section-sub">Є ідея або проект? Пиши — відповім протягом кількох годин і обговоримо деталі.</div>
+                <div class="contact-links">
+                    <a href="https://t.me/Vlad_shepuk" target="_blank" class="contact-link">
+                        <span class="icon">✈️</span> @Vlad_shepuk у Telegram
+                    </a>
+                    <a href="tel:+380981256254" class="contact-link">
+                        <span class="icon">📞</span> +380 98 125 62 54
+                    </a>
+                </div>
+            </div>
+            <div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label>Ім'я</label>
+                        <input type="text" class="form-control" placeholder="Як тебе звати?" id="formName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telegram або телефон</label>
+                        <input type="text" class="form-control" placeholder="@username або номер" id="formContact" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Що потрібно зробити?</label>
+                        <textarea class="form-control" placeholder="Опиши задачу..." id="formMessage" required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Надіслати заявку ✈️</button>
+                </form>
+                <div class="form-success" id="formSuccess">
+                    ✅ Заявку надіслано! Відповім найближчим часом.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Влад <span>Шипук</span> · Всі права захищено</p>
+</footer>
+
+<script>
+// Burger menu
+function toggleMenu() {
+    document.getElementById('burgerBtn').classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu() {
+    document.getElementById('burgerBtn').classList.remove('open');
+    document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click', e => {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('burgerBtn');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) closeMenu();
+});
+
+// Fade-in on scroll
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Contact form → Telegram
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const name = document.getElementById('formName').value;
+    const contact = document.getElementById('formContact').value;
+    const message = document.getElementById('formMessage').value;
+
+    const BOT_TOKEN = 'ВСТАВ_СВІЙ_ТОКЕН';
+    const CHAT_ID = 'ВСТАВ_СВІЙ_ID';
+
+    const text = `📩 Нова заявка з портфоліо!\n\n👤 Ім'я: ${name}\n📬 Контакт: ${contact}\n💬 Повідомлення: ${message}`;
+
+    try {
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: CHAT_ID, text })
+        });
+    } catch(err) {}
+
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+});
+</script>
+</body>
+</html>
