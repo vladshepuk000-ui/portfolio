@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funeral Bot — Кейс | Влад Шипук</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        :root {
+            --bg: #07071a; --text: #f0eeff; --muted: #8b8aad;
+            --border: rgba(255,255,255,0.08); --purple: #a855f7;
+            --glass: rgba(255,255,255,0.04); --glass-border: rgba(255,255,255,0.1);
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+
+        .bg-blob { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+        .bg-blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(124,58,237,0.2) 0%, transparent 70%); top: -100px; left: -100px; }
+        .bg-blob-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%); bottom: 10%; right: -100px; }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(7,7,26,0.85); backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 5%; height: 60px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo { font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; }
+        .nav-logo span { background: linear-gradient(90deg, #a855f7, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-back { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
+        .nav-back:hover { color: var(--text); }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 100px 5% 80px; position: relative; z-index: 1; }
+
+        .case-hero { margin-bottom: 60px; }
+        .case-label { font-size: 11px; font-weight: 600; color: #a855f7; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .case-title { font-size: clamp(32px, 5vw, 56px); font-weight: 800; letter-spacing: -2px; line-height: 1.1; margin-bottom: 20px; }
+        .case-title span { background: linear-gradient(135deg, #a855f7, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .case-desc { font-size: 17px; color: var(--muted); line-height: 1.8; max-width: 600px; margin-bottom: 32px; }
+        .case-links { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn-primary { background: linear-gradient(135deg, #7c3aed, #a855f7); color: #fff; padding: 12px 24px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.2s; box-shadow: 0 0 24px rgba(168,85,247,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); }
+        .btn-ghost { background: var(--glass); color: var(--text); padding: 12px 24px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 500; border: 1px solid var(--glass-border); transition: all 0.2s; }
+        .btn-ghost:hover { border-color: rgba(168,85,247,0.4); }
+
+        .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+        .section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 24px; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+        .stat-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 14px; padding: 24px; text-align: center; }
+        .stat-num { font-size: 36px; font-weight: 800; background: linear-gradient(135deg, #a855f7, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+        .stat-label { font-size: 13px; color: var(--muted); }
+
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 48px; }
+        .feature-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 14px; padding: 24px; }
+        .feature-icon { font-size: 28px; margin-bottom: 12px; }
+        .feature-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+        .stack-list { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 48px; }
+        .stack-chip { background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2); color: #c084fc; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+
+        .cta { background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(168,85,247,0.08)); border: 1px solid rgba(168,85,247,0.2); border-radius: 20px; padding: 40px; text-align: center; }
+        .cta h3 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+        .cta p { color: var(--muted); margin-bottom: 24px; font-size: 15px; }
+
+        footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 24px 5%; text-align: center; }
+        footer p { font-size: 13px; color: var(--muted); }
+
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-blob bg-blob-1"></div>
+<div class="bg-blob bg-blob-2"></div>
+
+<nav>
+    <a href="index.html" class="nav-logo">Влад <span>Шипук</span></a>
+    <a href="index.html#cases" class="nav-back">← Всі кейси</a>
+</nav>
+
+<div class="container">
+
+    <!-- HERO -->
+    <div class="case-hero">
+        <div class="case-label">02 — Telegram бот</div>
+        <h1 class="case-title">Похоронне агентство —<br><span>Telegram бот</span></h1>
+        <p class="case-desc">Telegram бот для похоронного агентства з каталогом послуг, оформленням заявок, сповіщеннями адміну та базою клієнтів.</p>
+        <div class="case-links">
+            <a href="https://t.me/ritual_funeral_bot" target="_blank" class="btn-primary">✈️ Відкрити бота</a>
+            <a href="https://github.com/vladshepuk000-ui/telegram-bot-funeral" target="_blank" class="btn-ghost">⌥ GitHub</a>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- STATS -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Категорії послуг</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num">24/7</div>
+            <div class="stat-label">Прийом заявок</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num">Auto</div>
+            <div class="stat-label">Сповіщення адміну</div>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="section-title">Що реалізовано</div>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <div class="feature-title">Каталог послуг</div>
+            <div class="feature-desc">Структурований каталог послуг по категоріях з описом і цінами.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📝</div>
+            <div class="feature-title">Оформлення заявок</div>
+            <div class="feature-desc">Клієнт заповнює заявку прямо в боті — ім'я, контакт, деталі.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔔</div>
+            <div class="feature-title">Сповіщення адміну</div>
+            <div class="feature-desc">Миттєве сповіщення адміністратора про кожну нову заявку.</div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <div class="feature-title">База клієнтів</div>
+            <div class="feature-desc">Збереження даних клієнтів і заявок в базі даних SQLite.</div>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- STACK -->
+    <div class="section-title">Технічний стек</div>
+    <div class="stack-list">
+        <span class="stack-chip">Python</span>
+        <span class="stack-chip">aiogram 3</span>
+        <span class="stack-chip">SQLite</span>
+        <span class="stack-chip">aiosqlite</span>
+    </div>
+
+    <hr class="divider">
+
+    <!-- CTA -->
+    <div class="cta">
+        <h3>Хочеш подібний проект?</h3>
+        <p>Зроблю Telegram бота під будь-який бізнес</p>
+        <a href="https://t.me/Vlad_shepuk?text=Привіт! Хочу замовити Telegram бота для свого бізнесу." target="_blank" class="btn-primary">📋 Написати в Telegram</a>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Влад Шипук</p>
+</footer>
+
+</body>
+</html>
