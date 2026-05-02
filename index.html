@@ -155,9 +155,13 @@
         .glass-card:hover { border-color: rgba(124,58,237,0.25); box-shadow: 0 6px 32px rgba(124,58,237,0.1); transform: translateY(-2px); }
 
         /* ABOUT */
-        .about-quote { font-size: clamp(32px, 4vw, 56px); font-weight: 800; letter-spacing: -2px; line-height: 1.1; margin-bottom: 20px; }
-        .about-quote span { background: linear-gradient(135deg, #a855f7, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .about-sub { font-size: 18px; color: var(--muted); line-height: 1.8; margin-bottom: 52px; max-width: 560px; }
+        .about-top { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 52px; }
+        .about-text { font-size: 18px; color: var(--muted); line-height: 1.85; }
+        .about-text strong { color: var(--text); }
+        .about-stats { display: flex; flex-direction: column; gap: 28px; }
+        .about-stat-num { font-size: 52px; font-weight: 800; letter-spacing: -2px; line-height: 1; background: linear-gradient(135deg, #a855f7, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .about-stat-label { font-size: 15px; color: var(--muted); margin-top: 4px; }
+        @media (max-width: 768px) { .about-top { grid-template-columns: 1fr; gap: 32px; } .about-stats { flex-direction: row; justify-content: space-between; } .about-stat-num { font-size: 38px; } }
         .advantages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .adv-card { padding: 28px 30px; border-left: 3px solid transparent; }
         .adv-card:nth-child(1) { border-left-color: #a855f7; }
@@ -358,8 +362,26 @@
     <div class="section-inner">
         <div class="section-label">Про нас</div>
         <div class="section-title">Хто ми і що робимо</div>
-        <div class="about-quote">Ваш бізнес<br><span>на автопілоті.</span></div>
-        <p class="about-sub">Будуємо Telegram боти та веб-системи, які працюють замість вас — приймають замовлення, відповідають клієнтам і надсилають звіти. Кожен проект — власний код, не шаблон з коробки.</p>
+        <div class="about-top">
+            <p class="about-text">
+                <strong>AutoMate</strong> — будуємо системи автоматизації для малого і середнього бізнесу під ключ.<br><br>
+                Не шаблони з коробки — кожен проект це код під конкретний бізнес. Клієнт пише в бот, отримує відповідь і оформлює замовлення. Ви просто отримуєте готову заявку.
+            </p>
+            <div class="about-stats">
+                <div>
+                    <div class="about-stat-num">20+</div>
+                    <div class="about-stat-label">функцій в кожному проекті</div>
+                </div>
+                <div>
+                    <div class="about-stat-num">24/7</div>
+                    <div class="about-stat-label">робота без вихідних</div>
+                </div>
+                <div>
+                    <div class="about-stat-num">7 днів</div>
+                    <div class="about-stat-label">до готового продукту</div>
+                </div>
+            </div>
+        </div>
         <div class="advantages-grid">
             <div class="adv-card glass-card">
                 <div class="adv-icon-wrap"><div class="adv-icon">🤖</div></div>
