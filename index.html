@@ -155,8 +155,9 @@
         .glass-card:hover { border-color: rgba(124,58,237,0.25); box-shadow: 0 6px 32px rgba(124,58,237,0.1); transform: translateY(-2px); }
 
         /* ABOUT */
-        .about-text { font-size: 18px; color: var(--muted); line-height: 1.85; margin-bottom: 52px; max-width: 680px; }
-        .about-text strong { color: var(--text); }
+        .about-quote { font-size: clamp(32px, 4vw, 56px); font-weight: 800; letter-spacing: -2px; line-height: 1.1; margin-bottom: 20px; }
+        .about-quote span { background: linear-gradient(135deg, #a855f7, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .about-sub { font-size: 18px; color: var(--muted); line-height: 1.8; margin-bottom: 52px; max-width: 560px; }
         .advantages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .adv-card { padding: 28px 30px; border-left: 3px solid transparent; }
         .adv-card:nth-child(1) { border-left-color: #a855f7; }
@@ -357,11 +358,8 @@
     <div class="section-inner">
         <div class="section-label">Про нас</div>
         <div class="section-title">Хто ми і що робимо</div>
-        <p class="about-text">
-            <strong>AutoMate</strong> — будуємо системи автоматизації для малого і середнього бізнесу під ключ.<br><br>
-            Не конструктори, не шаблони з коробки. Кожен проект — це код, написаний під конкретний бізнес. Тому він гнучкий, масштабований і робить рівно те, що потрібно вам — а не те, що дозволяє платформа.<br><br>
-            Клієнт пише в бот — отримує відповідь, обирає товар, оформлює замовлення. Ви просто отримуєте сповіщення і готову заявку.
-        </p>
+        <div class="about-quote">Ваш бізнес<br><span>на автопілоті.</span></div>
+        <p class="about-sub">Будуємо Telegram боти та веб-системи, які працюють замість вас — приймають замовлення, відповідають клієнтам і надсилають звіти. Кожен проект — власний код, не шаблон з коробки.</p>
         <div class="advantages-grid">
             <div class="adv-card glass-card">
                 <div class="adv-icon-wrap"><div class="adv-icon">🤖</div></div>
