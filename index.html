@@ -157,6 +157,17 @@
         }
         .glass-card:hover { border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.05); }
 
+        /* ABOUT */
+        .about-text { font-size: 18px; color: var(--muted); line-height: 1.85; margin-bottom: 52px; max-width: 680px; }
+        .about-text strong { color: var(--text); }
+        .advantages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .adv-card { padding: 28px 30px; }
+        .adv-icon { font-size: 32px; margin-bottom: 14px; }
+        .adv-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .adv-desc { font-size: 14px; color: var(--muted); line-height: 1.75; }
+
+        @media (max-width: 768px) { .advantages-grid { grid-template-columns: 1fr; } }
+
         /* CASES */
         .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .case-card { padding: 32px; cursor: pointer; }
@@ -265,6 +276,7 @@
 <nav>
     <a href="#hero" class="nav-logo">Auto<span>Mate</span></a>
     <div class="nav-links">
+        <a href="#about">Про нас</a>
         <a href="#cases">Кейси</a>
         <a href="#services">Послуги</a>
         <a href="#contacts">Контакти</a>
@@ -285,6 +297,7 @@
         <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
     </div>
     <div class="drawer-nav">
+        <a href="#about" onclick="closeMenu()">Про нас</a>
         <a href="#cases" onclick="closeMenu()">Кейси</a>
         <a href="#services" onclick="closeMenu()">Послуги</a>
         <a href="#contacts" onclick="closeMenu()">Контакти</a>
@@ -306,6 +319,43 @@
         </div>
     </div>
 </div>
+
+<hr class="section-divider">
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="section-inner">
+        <div class="section-label">Про нас</div>
+        <div class="section-title">Хто ми і що робимо</div>
+        <p class="about-text">
+            <strong>AutoMate</strong> — будуємо системи автоматизації для малого і середнього бізнесу під ключ.<br><br>
+            Не конструктори, не шаблони з коробки. Кожен проект — це код, написаний під конкретний бізнес. Тому він гнучкий, масштабований і робить рівно те, що потрібно вам — а не те, що дозволяє платформа.<br><br>
+            Клієнт пише в бот — отримує відповідь, обирає товар, оформлює замовлення. Ви просто отримуєте сповіщення і готову заявку.
+        </p>
+        <div class="advantages-grid">
+            <div class="adv-card glass-card">
+                <div class="adv-icon">🤖</div>
+                <div class="adv-title">AI всередині</div>
+                <div class="adv-desc">Наші боти вміють розмовляти. AI-асистент відповідає на питання клієнтів, рекомендує товари і консультує — без участі людини, цілодобово.</div>
+            </div>
+            <div class="adv-card glass-card">
+                <div class="adv-icon">⚡</div>
+                <div class="adv-title">Не з коробки — власний код</div>
+                <div class="adv-desc">Жодних обмежень платформ і щомісячних платежів за підписку. Повна гнучкість: будуємо під вашу логіку, не підлаштовуємо бізнес під шаблон.</div>
+            </div>
+            <div class="adv-card glass-card">
+                <div class="adv-icon">🌐</div>
+                <div class="adv-title">Бот + сайт + адмін — одна система</div>
+                <div class="adv-desc">Не просто бот — повна екосистема. Клієнт замовляє через сайт або Telegram, ви керуєте всім з адмін-панелі в одному місці.</div>
+            </div>
+            <div class="adv-card glass-card">
+                <div class="adv-icon">📊</div>
+                <div class="adv-title">Автоматика замість рутини</div>
+                <div class="adv-desc">Розсилки, нагадування клієнтам через 21 день, щоденний звіт у Telegram — все без ручної роботи. Ви займаєтесь бізнесом, не операційкою.</div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <hr class="section-divider">
 
