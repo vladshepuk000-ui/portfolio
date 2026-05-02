@@ -250,16 +250,47 @@
         footer a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
         footer a:hover { color: var(--text); }
 
+        /* MOBILE FIXED CTA */
+        .mobile-cta-bar {
+            display: none;
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+            padding: 12px 20px 20px;
+            background: linear-gradient(to top, rgba(242,242,247,1) 60%, rgba(242,242,247,0));
+        }
+        .mobile-cta-bar a {
+            display: block; text-align: center;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff; padding: 15px; border-radius: 14px;
+            text-decoration: none; font-size: 16px; font-weight: 700;
+            box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+        }
+
         @media (max-width: 768px) {
             .nav-links, .nav-cta { display: none; }
             .burger-btn { display: flex; }
             nav { padding: 0 20px; }
-            section { padding: 72px 20px; }
-            .hero { padding: 90px 20px 60px; }
+
+            section { padding: 52px 18px; }
+            .hero { padding: 80px 18px 40px; min-height: auto; }
+            .hero h1 { font-size: clamp(36px, 10vw, 56px); letter-spacing: -2px; margin-bottom: 16px; }
+            .hero p { font-size: 16px; margin-bottom: 28px; }
+            .hero-btns { flex-direction: column; gap: 10px; }
+            .hero-btns .btn-primary { text-align: center; }
+            .hero-btns .btn-secondary { display: none; }
+
             .cases-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
-            .contacts-grid { grid-template-columns: 1fr; gap: 36px; }
+            .advantages-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .adv-card { padding: 18px; }
+            .adv-icon { font-size: 24px; margin-bottom: 8px; }
+            .adv-title { font-size: 15px; }
+
+            .contacts-grid { grid-template-columns: 1fr; gap: 32px; }
             .footer-inner { flex-direction: column; gap: 10px; text-align: center; }
+            footer { padding-bottom: 100px; }
+
+            .mobile-cta-bar { display: block; }
+            .section-title { font-size: clamp(26px, 7vw, 38px); margin-bottom: 32px; }
         }
     </style>
 </head>
@@ -497,6 +528,11 @@
         </div>
     </div>
 </footer>
+
+<!-- MOBILE FIXED CTA -->
+<div class="mobile-cta-bar">
+    <a href="#contacts">Написати нам →</a>
+</div>
 
 <script>
 function toggleMenu() {
