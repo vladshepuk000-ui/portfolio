@@ -158,8 +158,17 @@
         .about-text { font-size: 18px; color: var(--muted); line-height: 1.85; margin-bottom: 52px; max-width: 680px; }
         .about-text strong { color: var(--text); }
         .advantages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .adv-card { padding: 28px 30px; }
-        .adv-icon { font-size: 32px; margin-bottom: 14px; }
+        .adv-card { padding: 28px 30px; border-left: 3px solid transparent; }
+        .adv-card:nth-child(1) { border-left-color: #a855f7; }
+        .adv-card:nth-child(2) { border-left-color: #6366f1; }
+        .adv-card:nth-child(3) { border-left-color: #7c3aed; }
+        .adv-card:nth-child(4) { border-left-color: #8b5cf6; }
+        .adv-icon-wrap { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
+        .adv-card:nth-child(1) .adv-icon-wrap { background: rgba(168,85,247,0.1); }
+        .adv-card:nth-child(2) .adv-icon-wrap { background: rgba(99,102,241,0.1); }
+        .adv-card:nth-child(3) .adv-icon-wrap { background: rgba(124,58,237,0.1); }
+        .adv-card:nth-child(4) .adv-icon-wrap { background: rgba(139,92,246,0.1); }
+        .adv-icon { font-size: 24px; margin-bottom: 0; }
         .adv-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
         .adv-desc { font-size: 14px; color: var(--muted); line-height: 1.75; }
 
@@ -255,8 +264,8 @@
             .burger-btn { display: flex; }
             nav { padding: 0 20px; }
 
-            section { padding: 52px 18px; }
-            .hero { padding: 80px 18px 40px; min-height: auto; }
+            section { padding: 40px 18px; }
+            .hero { padding: 80px 18px 36px; min-height: auto; }
             .hero h1 { font-size: clamp(36px, 10vw, 56px); letter-spacing: -2px; margin-bottom: 16px; }
             .hero p { font-size: 16px; margin-bottom: 28px; }
             .hero-btns { flex-direction: column; gap: 10px; }
@@ -275,9 +284,10 @@
                 row-gap: 10px;
                 align-items: center;
             }
-            .adv-icon { font-size: 24px; margin-bottom: 0; grid-column: 1; grid-row: 1; }
-            .adv-title { font-size: 16px; margin-bottom: 0; grid-column: 2; grid-row: 1; }
-            .adv-desc { font-size: 15px; grid-column: 1 / -1; grid-row: 2; color: var(--muted); line-height: 1.65; }
+            .adv-icon-wrap { width: 36px; height: 36px; border-radius: 10px; margin-bottom: 0; grid-column: 1; grid-row: 1; display: flex; align-items: center; justify-content: center; }
+            .adv-icon { font-size: 20px; margin-bottom: 0; }
+            .adv-title { font-size: 16px; margin-bottom: 0; grid-column: 2; grid-row: 1; align-self: center; }
+            .adv-desc { font-size: 14px; grid-column: 1 / -1; grid-row: 2; color: var(--muted); line-height: 1.65; }
 
             .contacts-grid { grid-template-columns: 1fr; gap: 32px; }
             .footer-inner { flex-direction: column; gap: 10px; text-align: center; }
@@ -353,22 +363,22 @@
         </p>
         <div class="advantages-grid">
             <div class="adv-card glass-card">
-                <div class="adv-icon">🤖</div>
+                <div class="adv-icon-wrap"><div class="adv-icon">🤖</div></div>
                 <div class="adv-title">AI всередині</div>
                 <div class="adv-desc">Наші боти вміють розмовляти. AI-асистент відповідає на питання клієнтів, рекомендує товари і консультує — без участі людини, цілодобово.</div>
             </div>
             <div class="adv-card glass-card">
-                <div class="adv-icon">⚡</div>
+                <div class="adv-icon-wrap"><div class="adv-icon">⚡</div></div>
                 <div class="adv-title">Не з коробки — власний код</div>
                 <div class="adv-desc">Жодних обмежень платформ і щомісячних платежів за підписку. Повна гнучкість: будуємо під вашу логіку, не підлаштовуємо бізнес під шаблон.</div>
             </div>
             <div class="adv-card glass-card">
-                <div class="adv-icon">🌐</div>
+                <div class="adv-icon-wrap"><div class="adv-icon">🌐</div></div>
                 <div class="adv-title">Бот + сайт + адмін — одна система</div>
                 <div class="adv-desc">Не просто бот — повна екосистема. Клієнт замовляє через сайт або Telegram, ви керуєте всім з адмін-панелі в одному місці.</div>
             </div>
             <div class="adv-card glass-card">
-                <div class="adv-icon">📊</div>
+                <div class="adv-icon-wrap"><div class="adv-icon">📊</div></div>
                 <div class="adv-title">Автоматика замість рутини</div>
                 <div class="adv-desc">Розсилки, нагадування клієнтам у потрібний момент, щоденний звіт у Telegram — все без ручної роботи. Ви займаєтесь бізнесом, не операційкою.</div>
             </div>
