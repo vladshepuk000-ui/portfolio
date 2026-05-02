@@ -250,22 +250,7 @@
         footer a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
         footer a:hover { color: var(--text); }
 
-        /* MOBILE FIXED CTA */
-        .mobile-cta-bar {
-            display: none;
-            position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
-            padding: 12px 20px 20px;
-            background: linear-gradient(to top, rgba(242,242,247,1) 60%, rgba(242,242,247,0));
-        }
-        .mobile-cta-bar a {
-            display: block; text-align: center;
-            background: linear-gradient(135deg, #7c3aed, #a855f7);
-            color: #fff; padding: 15px; border-radius: 14px;
-            text-decoration: none; font-size: 16px; font-weight: 700;
-            box-shadow: 0 4px 20px rgba(124,58,237,0.4);
-        }
-
-        @media (max-width: 768px) {
+@media (max-width: 768px) {
             .nav-links, .nav-cta { display: none; }
             .burger-btn { display: flex; }
             nav { padding: 0 20px; }
@@ -287,9 +272,6 @@
 
             .contacts-grid { grid-template-columns: 1fr; gap: 32px; }
             .footer-inner { flex-direction: column; gap: 10px; text-align: center; }
-            footer { padding-bottom: 100px; }
-
-            .mobile-cta-bar { display: block; }
             .section-title { font-size: clamp(26px, 7vw, 38px); margin-bottom: 32px; }
         }
     </style>
@@ -528,11 +510,6 @@
         </div>
     </div>
 </footer>
-
-<!-- MOBILE FIXED CTA -->
-<div class="mobile-cta-bar">
-    <a href="#contacts">Написати нам →</a>
-</div>
 
 <script>
 function toggleMenu() {
