@@ -3,72 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Влад Шипук — Розробник</title>
+    <title>AutoMate — Автоматизація бізнесу</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         :root {
             --bg: #07071a;
-            --bg2: #0f0f2a;
             --text: #f0eeff;
             --muted: #8b8aad;
             --border: rgba(255,255,255,0.08);
-            --purple: #a855f7;
-            --purple2: #7c3aed;
             --glass: rgba(255,255,255,0.04);
             --glass-border: rgba(255,255,255,0.1);
         }
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background: var(--bg); color: var(--text);
-            font-size: 15px; line-height: 1.6;
+            font-size: 16px; line-height: 1.7;
             overflow-x: hidden;
         }
 
-        /* BACKGROUND BLOBS */
-        .bg-blob {
-            position: fixed; border-radius: 50%; filter: blur(120px);
-            pointer-events: none; z-index: 0;
-        }
-        .bg-blob-1 {
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%);
-            top: -150px; left: -150px;
-        }
-        .bg-blob-2 {
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%);
-            bottom: 10%; right: -100px;
-        }
-        .bg-blob-3 {
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%);
-            top: 50%; left: 40%;
-        }
+        .bg-blob { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+        .bg-blob-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%); top: -150px; left: -150px; }
+        .bg-blob-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%); bottom: 10%; right: -100px; }
+        .bg-blob-3 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%); top: 50%; left: 40%; }
 
         /* NAV */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            background: rgba(7,7,26,0.8); backdrop-filter: blur(16px);
+            background: rgba(7,7,26,0.85); backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
-            padding: 0 5%; height: 60px;
+            padding: 0 5%; height: 64px;
             display: flex; align-items: center; justify-content: space-between;
         }
         .nav-logo {
-            font-size: 16px; font-weight: 700; color: var(--text);
-            text-decoration: none; letter-spacing: -0.3px;
+            font-size: 20px; font-weight: 800; color: var(--text);
+            text-decoration: none; letter-spacing: -0.5px;
         }
         .nav-logo span {
             background: linear-gradient(90deg, #a855f7, #7c3aed);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .nav-links { display: flex; gap: 28px; }
-        .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .nav-links { display: flex; gap: 32px; }
+        .nav-links a { color: var(--muted); text-decoration: none; font-size: 15px; transition: color 0.2s; }
         .nav-links a:hover { color: var(--text); }
         .nav-cta {
             background: linear-gradient(135deg, #7c3aed, #a855f7);
-            color: #fff; padding: 8px 18px; border-radius: 8px;
-            text-decoration: none; font-size: 13px; font-weight: 600;
+            color: #fff; padding: 9px 20px; border-radius: 8px;
+            text-decoration: none; font-size: 14px; font-weight: 600;
             transition: opacity 0.2s; box-shadow: 0 0 20px rgba(168,85,247,0.3);
         }
         .nav-cta:hover { opacity: 0.85; }
@@ -97,7 +78,7 @@
         .mobile-menu.open { left: 0; }
         .mobile-menu-header {
             padding: 0 20px; border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between; height: 60px;
+            display: flex; align-items: center; justify-content: space-between; height: 64px;
         }
         .mobile-menu-close {
             background: var(--glass); border: 1px solid var(--glass-border);
@@ -106,15 +87,15 @@
         }
         .drawer-nav { flex: 1; padding: 8px 0; }
         .drawer-nav a {
-            display: block; color: var(--muted); text-decoration: none; font-size: 15px;
-            padding: 14px 20px; border-bottom: 1px solid var(--border); transition: color 0.2s;
+            display: block; color: var(--muted); text-decoration: none; font-size: 16px;
+            padding: 16px 20px; border-bottom: 1px solid var(--border); transition: color 0.2s;
         }
         .drawer-nav a:hover { color: var(--text); }
         .mobile-menu-footer { padding: 20px; }
         .mobile-menu-footer a {
             display: block; background: linear-gradient(135deg, #7c3aed, #a855f7);
-            color: #fff; text-align: center; padding: 12px; border-radius: 8px;
-            text-decoration: none; font-size: 14px; font-weight: 600;
+            color: #fff; text-align: center; padding: 13px; border-radius: 8px;
+            text-decoration: none; font-size: 15px; font-weight: 600;
         }
 
         /* HERO */
@@ -123,38 +104,37 @@
             padding: 100px 5% 80px; max-width: 1000px; margin: 0 auto;
             position: relative; z-index: 1;
         }
-        .hero-content { max-width: 680px; }
+        .hero-content { max-width: 720px; }
         .hero-tag {
             display: inline-flex; align-items: center; gap: 8px;
             background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2);
-            color: #c084fc; padding: 6px 14px; border-radius: 20px;
-            font-size: 12px; font-weight: 500; letter-spacing: 0.5px;
-            margin-bottom: 28px;
+            color: #c084fc; padding: 7px 16px; border-radius: 20px;
+            font-size: 13px; font-weight: 500; letter-spacing: 0.3px;
+            margin-bottom: 32px;
         }
-        .hero-tag::before { content: ''; width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 6px #22c55e; }
+        .hero-tag::before { content: ''; width: 7px; height: 7px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 6px #22c55e; }
         .hero h1 {
-            font-size: clamp(42px, 7vw, 80px); font-weight: 800;
-            line-height: 1.05; letter-spacing: -3px; margin-bottom: 20px;
+            font-size: clamp(44px, 7vw, 84px); font-weight: 800;
+            line-height: 1.05; letter-spacing: -3px; margin-bottom: 24px;
         }
         .hero h1 .gradient-text {
             background: linear-gradient(135deg, #a855f7 0%, #7c3aed 50%, #6366f1 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .hero p { font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 40px; max-width: 500px; }
-        .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+        .hero p { font-size: 19px; color: var(--muted); line-height: 1.8; margin-bottom: 44px; max-width: 540px; }
+        .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
         .btn-primary {
             background: linear-gradient(135deg, #7c3aed, #a855f7);
-            color: #fff; padding: 12px 28px; border-radius: 10px;
-            text-decoration: none; font-size: 15px; font-weight: 600;
+            color: #fff; padding: 14px 32px; border-radius: 10px;
+            text-decoration: none; font-size: 16px; font-weight: 600;
             transition: all 0.2s; box-shadow: 0 0 30px rgba(168,85,247,0.35);
         }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(168,85,247,0.5); }
         .btn-secondary {
             background: var(--glass); color: var(--text);
-            padding: 12px 28px; border-radius: 10px;
-            text-decoration: none; font-size: 15px; font-weight: 500;
+            padding: 14px 32px; border-radius: 10px;
+            text-decoration: none; font-size: 16px; font-weight: 500;
             border: 1px solid var(--glass-border); transition: all 0.2s;
-            backdrop-filter: blur(8px);
         }
         .btn-secondary:hover { border-color: rgba(168,85,247,0.4); background: rgba(168,85,247,0.08); }
 
@@ -162,168 +142,116 @@
         section { padding: 100px 5%; position: relative; z-index: 1; }
         .section-inner { max-width: 1000px; margin: 0 auto; }
         .section-label {
-            display: inline-block; font-size: 11px; font-weight: 600;
+            display: inline-block; font-size: 12px; font-weight: 600;
             color: #a855f7; text-transform: uppercase; letter-spacing: 2px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         .section-title {
-            font-size: clamp(28px, 4vw, 44px); font-weight: 800;
-            letter-spacing: -1.5px; margin-bottom: 48px; line-height: 1.1;
+            font-size: clamp(30px, 4vw, 48px); font-weight: 800;
+            letter-spacing: -1.5px; margin-bottom: 52px; line-height: 1.1;
         }
 
-        /* GLASS CARD */
         .glass-card {
             background: var(--glass); border: 1px solid var(--glass-border);
-            border-radius: 16px; backdrop-filter: blur(12px);
-            transition: all 0.3s;
+            border-radius: 16px; backdrop-filter: blur(12px); transition: all 0.3s;
         }
         .glass-card:hover { border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.05); }
 
-        /* ABOUT */
-        .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: start; }
-        .about-photo {
-            aspect-ratio: 1; border-radius: 20px;
-            background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(168,85,247,0.1));
-            border: 1px solid rgba(168,85,247,0.2);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 72px;
-        }
-        .about-text p { color: var(--muted); font-size: 15px; line-height: 1.85; margin-bottom: 14px; }
-        .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-        .skill {
-            background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2);
-            color: #c084fc; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
-        }
-
         /* CASES */
         .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .case-card { padding: 32px; }
-        .case-num { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
-        .case-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; }
-        .case-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
-        .case-stack { display: flex; flex-wrap: wrap; gap: 6px; }
-        .case-chip {
-            background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2);
-            color: #818cf8; padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 500;
+        .case-card { padding: 32px; cursor: pointer; }
+        .case-num { font-size: 12px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+        .case-title { font-size: 22px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+        .case-desc { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 24px; }
+        .case-result {
+            background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.15);
+            border-radius: 10px; padding: 14px 16px; margin-bottom: 20px;
+            font-size: 14px; color: #c084fc; line-height: 1.6;
         }
-        .case-card.highlight {
-            background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(168,85,247,0.06));
-            border-color: rgba(168,85,247,0.25);
-        }
-        .service-order-btn {
-            display: block; margin-top: 16px; text-align: center;
-            background: linear-gradient(135deg, #7c3aed, #a855f7);
-            color: #fff; padding: 10px; border-radius: 10px;
-            text-decoration: none; font-size: 14px; font-weight: 600;
-            transition: all 0.2s; box-shadow: 0 0 20px rgba(168,85,247,0.25);
-        }
-        .service-order-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(168,85,247,0.4); }
-        .case-brief-btn {
-            display: inline-flex; align-items: center; gap: 6px;
-            margin-top: 4px; padding: 6px 14px; border-radius: 8px;
-            background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.25);
-            color: #c084fc; font-size: 12px; font-weight: 500;
-            text-decoration: none; transition: all 0.2s;
-        }
-        .case-brief-btn:hover { background: rgba(168,85,247,0.2); }
-        .case-links { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+        .case-result strong { color: var(--text); display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .case-links { display: flex; gap: 10px; flex-wrap: wrap; }
         .case-link {
             display: inline-flex; align-items: center; gap: 6px;
-            padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 500;
+            padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500;
             text-decoration: none; transition: all 0.2s;
         }
-        .case-link-github {
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            color: var(--muted);
-        }
+        .case-link-site { background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2); color: #c084fc; }
+        .case-link-site:hover { background: rgba(168,85,247,0.2); }
+        .case-link-github { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--muted); }
         .case-link-github:hover { border-color: rgba(255,255,255,0.25); color: var(--text); }
-        .case-link-site {
-            background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2);
-            color: #c084fc;
-        }
-        .case-link-site:hover { background: rgba(168,85,247,0.18); }
+        .case-card.highlight { background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(168,85,247,0.06)); border-color: rgba(168,85,247,0.25); }
 
         /* SERVICES */
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .service-card { padding: 32px; }
-        .service-icon {
-            width: 48px; height: 48px; border-radius: 12px;
-            background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(168,85,247,0.1));
-            border: 1px solid rgba(168,85,247,0.2);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px; margin-bottom: 20px;
-        }
-        .service-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
-        .service-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
-        .service-list { list-style: none; margin-bottom: 22px; }
-        .service-list li {
-            font-size: 13px; color: var(--muted); padding: 7px 0;
-            border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: center;
-        }
-        .service-list li::before { content: '→'; color: #a855f7; flex-shrink: 0; font-size: 12px; }
-        .service-price { font-size: 28px; font-weight: 800; line-height: 1.2; }
-        .service-price .price-gradient {
-            background: linear-gradient(90deg, #a855f7, #7c3aed);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        .service-icon { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(168,85,247,0.1)); border: 1px solid rgba(168,85,247,0.2); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 22px; }
+        .service-title { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+        .service-desc { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+        .service-list { list-style: none; margin-bottom: 24px; }
+        .service-list li { font-size: 14px; color: var(--muted); padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
+        .service-list li::before { content: '→'; color: #a855f7; flex-shrink: 0; }
+        .service-price { font-size: 28px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+        .service-price .price-gradient { background: linear-gradient(90deg, #a855f7, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .service-price .price-unit { font-size: 14px; font-weight: 400; color: var(--muted); }
+        .service-order-btn {
+            display: block; text-align: center;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff; padding: 11px; border-radius: 10px;
+            text-decoration: none; font-size: 15px; font-weight: 600;
+            transition: all 0.2s; box-shadow: 0 0 20px rgba(168,85,247,0.25);
+        }
+        .service-order-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(168,85,247,0.4); }
 
         /* CONTACTS */
         .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-        .contact-intro p { color: var(--muted); font-size: 16px; line-height: 1.8; margin-bottom: 28px; }
-        .contact-links { display: flex; flex-direction: column; gap: 10px; }
+        .contact-intro p { color: var(--muted); font-size: 17px; line-height: 1.8; margin-bottom: 28px; }
+        .contact-links { display: flex; flex-direction: column; gap: 12px; }
         .contact-link {
             display: flex; align-items: center; gap: 12px;
             background: var(--glass); border: 1px solid var(--glass-border);
-            padding: 14px 18px; border-radius: 12px;
-            text-decoration: none; color: var(--text); font-size: 14px;
-            transition: all 0.2s; backdrop-filter: blur(8px);
+            padding: 16px 18px; border-radius: 12px;
+            text-decoration: none; color: var(--text); font-size: 15px;
+            transition: all 0.2s;
         }
         .contact-link:hover { border-color: rgba(168,85,247,0.35); background: rgba(168,85,247,0.06); }
         .contact-form { display: flex; flex-direction: column; gap: 14px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-group label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; }
+        .form-group label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; }
         .form-control {
             background: var(--glass); border: 1px solid var(--glass-border); color: var(--text);
-            padding: 12px 14px; border-radius: 10px; font-size: 14px; outline: none;
-            transition: border 0.2s; font-family: inherit; backdrop-filter: blur(8px);
+            padding: 13px 14px; border-radius: 10px; font-size: 15px; outline: none;
+            transition: border 0.2s; font-family: inherit;
         }
         .form-control::placeholder { color: var(--muted); }
         .form-control:focus { border-color: rgba(168,85,247,0.4); }
         textarea.form-control { resize: vertical; min-height: 110px; }
         .form-submit {
             background: linear-gradient(135deg, #7c3aed, #a855f7);
-            color: #fff; padding: 13px; border-radius: 10px; border: none;
-            font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
+            color: #fff; padding: 14px; border-radius: 10px; border: none;
+            font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit;
             transition: all 0.2s; box-shadow: 0 0 24px rgba(168,85,247,0.3);
         }
-        .form-submit:hover { transform: translateY(-1px); box-shadow: 0 0 36px rgba(168,85,247,0.45); }
+        .form-submit:hover { transform: translateY(-1px); }
         .form-success { display: none; padding: 24px; text-align: center; color: #22c55e; font-size: 15px; background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.2); border-radius: 10px; }
 
-        /* DIVIDER */
         .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
 
-        /* FOOTER */
         footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 28px 5%; }
         .footer-inner { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        footer p { font-size: 13px; color: var(--muted); }
-        footer a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+        footer p { font-size: 14px; color: var(--muted); }
+        footer a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
         footer a:hover { color: var(--text); }
 
-        /* MOBILE */
         @media (max-width: 768px) {
             .nav-links, .nav-cta { display: none; }
             .burger-btn { display: flex; }
             nav { padding: 0 20px; }
             section { padding: 72px 20px; }
             .hero { padding: 90px 20px 60px; }
-            .about-grid { grid-template-columns: 1fr; gap: 28px; }
-            .about-photo { max-width: 140px; font-size: 56px; }
             .cases-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
             .contacts-grid { grid-template-columns: 1fr; gap: 36px; }
             .footer-inner { flex-direction: column; gap: 10px; text-align: center; }
-            .bg-blob { opacity: 0.6; }
         }
     </style>
 </head>
@@ -335,9 +263,8 @@
 
 <!-- NAV -->
 <nav>
-    <a href="#hero" class="nav-logo">Влад <span>Шипук</span></a>
+    <a href="#hero" class="nav-logo">Auto<span>Mate</span></a>
     <div class="nav-links">
-        <a href="#about">Про мене</a>
         <a href="#cases">Кейси</a>
         <a href="#services">Послуги</a>
         <a href="#contacts">Контакти</a>
@@ -354,11 +281,10 @@
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeMenu()"></div>
 <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-menu-header">
-        <a href="#hero" class="nav-logo" onclick="closeMenu()">Влад <span>Шипук</span></a>
+        <a href="#hero" class="nav-logo" onclick="closeMenu()">Auto<span>Mate</span></a>
         <button class="mobile-menu-close" onclick="closeMenu()">✕</button>
     </div>
     <div class="drawer-nav">
-        <a href="#about" onclick="closeMenu()">Про мене</a>
         <a href="#cases" onclick="closeMenu()">Кейси</a>
         <a href="#services" onclick="closeMenu()">Послуги</a>
         <a href="#contacts" onclick="closeMenu()">Контакти</a>
@@ -371,42 +297,15 @@
 <!-- HERO -->
 <div class="hero" id="hero">
     <div class="hero-content">
-        <div class="hero-tag">Доступний для проектів</div>
-        <h1>Влад<br><span class="gradient-text">Шипук.</span></h1>
-        <p>Розробляю Telegram-ботів, веб-сайти та автоматизації.<br>Від ідеї до готового продукту.</p>
+        <div class="hero-tag">Беремо нові проекти</div>
+        <h1>Автоматизація<br><span class="gradient-text">вашого бізнесу.</span></h1>
+        <p>Розробляємо Telegram-ботів та веб-сайти, які працюють замість вас — приймають замовлення, відповідають клієнтам і надсилають звіти.</p>
         <div class="hero-btns">
             <a href="#cases" class="btn-primary">Переглянути кейси</a>
-            <a href="#contacts" class="btn-secondary">Зв'язатися</a>
+            <a href="#contacts" class="btn-secondary">Обговорити проект</a>
         </div>
     </div>
 </div>
-
-<hr class="section-divider">
-
-<!-- ABOUT -->
-<section id="about">
-    <div class="section-inner">
-        <div class="section-label">Про мене</div>
-        <div class="section-title">Хто я такий</div>
-        <div class="about-grid">
-            <div class="about-photo">👨‍💻</div>
-            <div class="about-text">
-                <p>Привіт! Мене звати Влад, я розробник з Великої Михайлівки. Займаюся створенням Telegram-ботів, веб-сайтів та автоматизацією бізнес-процесів.</p>
-                <p>Починав з простих скриптів, зараз розробляю повноцінні продукти — від інтернет-магазинів до CRM-систем у Telegram.</p>
-                <p>Ціную чистий код, швидкий результат і чесну комунікацію з клієнтами.</p>
-                <div class="skills">
-                    <span class="skill">Python</span>
-                    <span class="skill">aiogram</span>
-                    <span class="skill">FastAPI</span>
-                    <span class="skill">SQLite</span>
-                    <span class="skill">HTML/CSS</span>
-                    <span class="skill">JavaScript</span>
-                    <span class="skill">Git</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <hr class="section-divider">
 
@@ -414,50 +313,39 @@
 <section id="cases">
     <div class="section-inner">
         <div class="section-label">Кейси</div>
-        <div class="section-title">Що я вже зробив</div>
+        <div class="section-title">Що ми вже зробили</div>
         <div class="cases-grid">
-            <div class="case-card glass-card highlight" style="cursor:pointer;" onclick="window.location='vape-shop.html'">
-                <div class="case-num">01 — Telegram бот + Веб</div>
-                <div class="case-title">Vape Shop — інтернет-магазин</div>
-                <div class="case-desc">Повноцінний магазин у Telegram з каталогом, кошиком, замовленнями та відгуками. Публічний сайт з онлайн-замовленням, адмін-панель, AI-асистент.</div>
-                <div class="case-stack">
-                    <span class="case-chip">Python</span>
-                    <span class="case-chip">aiogram</span>
-                    <span class="case-chip">FastAPI</span>
-                    <span class="case-chip">SQLite</span>
-                    <span class="case-chip">Groq AI</span>
+            <div class="case-card glass-card highlight" onclick="window.location='vape-shop.html'">
+                <div class="case-num">01 — Інтернет-магазин</div>
+                <div class="case-title">Vape Shop — магазин у Telegram + сайт</div>
+                <div class="case-desc">Клієнт хотів приймати замовлення онлайн без менеджера. Зробили повноцінний магазин — бот сам приймає замовлення, надсилає підтвердження і сповіщає власника.</div>
+                <div class="case-result">
+                    <strong>Результат для бізнесу</strong>
+                    Замовлення приймаються 24/7 без участі власника. AI-асистент відповідає на питання клієнтів автоматично.
                 </div>
                 <div class="case-links">
-                    <a href="https://hypnotist-fossil-ferocity.ngrok-free.dev/site" target="_blank" class="case-link case-link-site">🌐 Сайт</a>
-                    <a href="https://t.me/vm_vape_shop_bot" target="_blank" class="case-link case-link-site">✈️ Telegram бот</a>
-                    <a href="https://github.com/vladshepuk000-ui/vape-shop-bot" target="_blank" class="case-link case-link-github">⌥ GitHub</a>
-                    <a href="https://t.me/Vlad_shepuk?text=Привіт! Хочу замовити подібний проект (Vape Shop)." target="_blank" class="case-brief-btn">📋 Заповнити бриф</a>
+                    <a href="https://hypnotist-fossil-ferocity.ngrok-free.dev/site" target="_blank" class="case-link case-link-site" onclick="event.stopPropagation()">🌐 Сайт</a>
+                    <a href="https://t.me/vm_vape_shop_bot" target="_blank" class="case-link case-link-site" onclick="event.stopPropagation()">✈️ Бот</a>
                 </div>
             </div>
-            <div class="case-card glass-card" style="cursor:pointer;" onclick="window.location='funeral-bot.html'">
+            <div class="case-card glass-card" onclick="window.location='funeral-bot.html'">
                 <div class="case-num">02 — Telegram бот</div>
-                <div class="case-title">Похоронне агентство — бот</div>
-                <div class="case-desc">Telegram-бот для похоронного агентства: каталог послуг, оформлення заявок, сповіщення адміну, база клієнтів.</div>
-                <div class="case-stack">
-                    <span class="case-chip">Python</span>
-                    <span class="case-chip">aiogram</span>
-                    <span class="case-chip">SQLite</span>
+                <div class="case-title">Похоронне агентство — бот для заявок</div>
+                <div class="case-desc">Агентству потрібно було приймати заявки в будь-який час без телефонних дзвінків. Бот приймає заявки, збирає дані і одразу сповіщає менеджера.</div>
+                <div class="case-result">
+                    <strong>Результат для бізнесу</strong>
+                    Клієнти можуть залишити заявку в будь-який час. Менеджер отримує готову заявку з усіма деталями.
                 </div>
                 <div class="case-links">
-                    <a href="https://t.me/ritual_funeral_bot" target="_blank" class="case-link case-link-site">✈️ Telegram бот</a>
-                    <a href="https://github.com/vladshepuk000-ui/telegram-bot-funeral" target="_blank" class="case-link case-link-github">⌥ GitHub</a>
-                    <a href="https://t.me/Vlad_shepuk?text=Привіт! Хочу замовити подібний проект (Telegram бот)." target="_blank" class="case-brief-btn">📋 Заповнити бриф</a>
+                    <a href="https://t.me/ritual_funeral_bot" target="_blank" class="case-link case-link-site" onclick="event.stopPropagation()">✈️ Бот</a>
                 </div>
             </div>
             <div class="case-card glass-card">
-                <div class="case-num">03 — Наступний проект</div>
-                <div class="case-title">Твій проект тут</div>
-                <div class="case-desc">Зв'яжись — обговоримо деталі та зробимо крутий продукт разом. Беруся за будь-яку задачу.</div>
-                <div class="case-stack">
-                    <span class="case-chip">Будь-який стек</span>
-                </div>
+                <div class="case-num">03 — Ваш проект</div>
+                <div class="case-title">Тут може бути ваш бізнес</div>
+                <div class="case-desc">Розкажіть про свою задачу — підберемо рішення яке заощадить ваш час і збільшить продажі.</div>
                 <div class="case-links">
-                    <a href="https://t.me/Vlad_shepuk" target="_blank" class="case-link case-link-site">✈️ Написати</a>
+                    <a href="https://t.me/Vlad_shepuk?text=Привіт! Хочу обговорити проект." target="_blank" class="case-link case-link-site">✈️ Обговорити</a>
                 </div>
             </div>
         </div>
@@ -470,17 +358,17 @@
 <section id="services">
     <div class="section-inner">
         <div class="section-label">Послуги</div>
-        <div class="section-title">Чим можу допомогти</div>
+        <div class="section-title">Чим можемо допомогти</div>
         <div class="services-grid">
             <div class="service-card glass-card">
                 <div class="service-icon">🤖</div>
                 <div class="service-title">Telegram бот</div>
-                <div class="service-desc">Бот для бізнесу: каталог, замовлення, сповіщення, адмін-панель.</div>
+                <div class="service-desc">Бот який працює замість менеджера — приймає замовлення, відповідає клієнтам і надсилає вам сповіщення.</div>
                 <ul class="service-list">
-                    <li>Каталог товарів/послуг</li>
-                    <li>Прийом замовлень</li>
-                    <li>Сповіщення адміну</li>
+                    <li>Прийом замовлень 24/7</li>
+                    <li>Сповіщення власнику</li>
                     <li>Розсилки клієнтам</li>
+                    <li>Статистика і звіти</li>
                 </ul>
                 <div class="service-price"><span class="price-gradient">від 500 грн</span> <span class="price-unit">/ проект</span></div>
                 <a href="https://t.me/Vlad_shepuk?text=Привіт! Хочу замовити Telegram бота." target="_blank" class="service-order-btn">Замовити →</a>
@@ -488,9 +376,9 @@
             <div class="service-card glass-card">
                 <div class="service-icon">🌐</div>
                 <div class="service-title">Сайт + Бот</div>
-                <div class="service-desc">Публічний сайт з каталогом і формою замовлення + Telegram бот.</div>
+                <div class="service-desc">Публічний сайт з каталогом і формою замовлення плюс Telegram бот — повний цикл продажів онлайн.</div>
                 <ul class="service-list">
-                    <li>Адаптивний сайт</li>
+                    <li>Сайт з каталогом</li>
                     <li>Онлайн-замовлення</li>
                     <li>Telegram бот</li>
                     <li>Адмін-панель</li>
@@ -501,10 +389,10 @@
             <div class="service-card glass-card">
                 <div class="service-icon">⚡</div>
                 <div class="service-title">Автоматизація</div>
-                <div class="service-desc">Розсилки, нагадування, звіти, інтеграції з API.</div>
+                <div class="service-desc">Автоматичні розсилки, нагадування клієнтам, щоденні звіти — все що забирає ваш час.</div>
                 <ul class="service-list">
-                    <li>Розклад розсилок</li>
-                    <li>Авто-нагадування</li>
+                    <li>Авто-розсилки</li>
+                    <li>Нагадування клієнтам</li>
                     <li>Щоденні звіти</li>
                     <li>Інтеграція з AI</li>
                 </ul>
@@ -521,10 +409,10 @@
 <section id="contacts">
     <div class="section-inner">
         <div class="section-label">Контакти</div>
-        <div class="section-title">Напиши мені</div>
+        <div class="section-title">Обговоримо ваш проект</div>
         <div class="contacts-grid">
             <div class="contact-intro">
-                <p>Є ідея або проект? Пиши — відповім протягом кількох годин.</p>
+                <p>Розкажіть про свою задачу — відповімо протягом кількох годин і запропонуємо рішення.</p>
                 <div class="contact-links">
                     <a href="https://t.me/Vlad_shepuk" target="_blank" class="contact-link">✈️ &nbsp;@Vlad_shepuk</a>
                     <a href="tel:+380981256254" class="contact-link">📞 &nbsp;+380 98 125 62 54</a>
@@ -534,19 +422,19 @@
                 <form class="contact-form" id="contactForm">
                     <div class="form-group">
                         <label>Ім'я</label>
-                        <input type="text" class="form-control" placeholder="Як тебе звати?" id="formName" required>
+                        <input type="text" class="form-control" placeholder="Як вас звати?" id="formName" required>
                     </div>
                     <div class="form-group">
                         <label>Telegram або телефон</label>
                         <input type="text" class="form-control" placeholder="@username або номер" id="formContact" required>
                     </div>
                     <div class="form-group">
-                        <label>Повідомлення</label>
-                        <textarea class="form-control" placeholder="Опиши задачу..." id="formMessage" required></textarea>
+                        <label>Опишіть задачу</label>
+                        <textarea class="form-control" placeholder="Що потрібно автоматизувати?" id="formMessage" required></textarea>
                     </div>
                     <button type="submit" class="form-submit">Надіслати →</button>
                 </form>
-                <div class="form-success" id="formSuccess">✓ Заявку надіслано! Відповім найближчим часом.</div>
+                <div class="form-success" id="formSuccess">✓ Заявку надіслано! Відповімо найближчим часом.</div>
             </div>
         </div>
     </div>
@@ -555,7 +443,7 @@
 <!-- FOOTER -->
 <footer>
     <div class="footer-inner">
-        <p>© 2026 Влад Шипук</p>
+        <p>© 2026 AutoMate</p>
         <div style="display:flex;gap:20px;">
             <a href="https://t.me/Vlad_shepuk" target="_blank">Telegram</a>
             <a href="https://github.com/vladshepuk000-ui" target="_blank">GitHub</a>
