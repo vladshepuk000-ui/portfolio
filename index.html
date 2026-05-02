@@ -104,9 +104,9 @@
         .hero-content { max-width: 720px; }
         .hero-tag {
             display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2);
-            color: #c084fc; padding: 7px 16px; border-radius: 20px;
-            font-size: 13px; font-weight: 500; letter-spacing: 0.3px;
+            background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.2);
+            color: #6d28d9; padding: 7px 16px; border-radius: 20px;
+            font-size: 13px; font-weight: 600; letter-spacing: 0.3px;
             margin-bottom: 32px;
         }
         .hero-tag::before { content: ''; width: 7px; height: 7px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 6px #22c55e; }
@@ -161,13 +161,6 @@
         .about-stats { display: flex; flex-direction: column; gap: 28px; }
         .about-stat-num { font-size: 52px; font-weight: 800; letter-spacing: -2px; line-height: 1; background: linear-gradient(135deg, #a855f7, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .about-stat-label { font-size: 15px; color: var(--muted); margin-top: 4px; }
-        @media (max-width: 768px) {
-            .about-top { grid-template-columns: 1fr; gap: 32px; }
-            .about-stats { flex-direction: row; justify-content: space-between; gap: 0; }
-            .about-stats > div { text-align: center; flex: 1; }
-            .about-stat-num { font-size: 34px; }
-            .about-stat-label { font-size: 13px; }
-        }
         .advantages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .adv-card { padding: 28px 30px; border-left: 3px solid transparent; }
         .adv-card:nth-child(1) { border-left-color: #a855f7; }
@@ -182,8 +175,6 @@
         .adv-icon { font-size: 24px; margin-bottom: 0; }
         .adv-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
         .adv-desc { font-size: 14px; color: var(--muted); line-height: 1.75; }
-
-        @media (max-width: 768px) { .advantages-grid { grid-template-columns: 1fr; } }
 
         /* CASES */
         .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -284,6 +275,12 @@
             .hero-btns .btn-primary { text-align: center; }
             .hero-btns .btn-secondary { display: none; }
 
+            .about-top { grid-template-columns: 1fr; gap: 32px; }
+            .about-stats { flex-direction: row; justify-content: space-between; gap: 0; }
+            .about-stats > div { text-align: center; flex: 1; }
+            .about-stat-num { font-size: 34px; }
+            .about-stat-label { font-size: 13px; }
+
             .cases-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
             .advantages-grid { grid-template-columns: 1fr; gap: 10px; }
@@ -308,10 +305,6 @@
     </style>
 </head>
 <body>
-
-<div class="bg-blob bg-blob-1"></div>
-<div class="bg-blob bg-blob-2"></div>
-<div class="bg-blob bg-blob-3"></div>
 
 <!-- NAV -->
 <nav>
