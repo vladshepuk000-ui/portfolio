@@ -567,7 +567,7 @@ function closeMenu() {
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const name = document.getElementById('formName').value.trim();
-    const phone = document.getElementById('formPhone').value.trim();
+    const phone = document.getElementById('formContact').value.trim();
     const message = document.getElementById('formMessage').value.trim();
     const btn = this.querySelector('.form-submit');
     btn.disabled = true;
