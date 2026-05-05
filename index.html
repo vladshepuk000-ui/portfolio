@@ -564,10 +564,28 @@ function closeMenu() {
     document.getElementById('drawerOverlay').classList.remove('open');
     document.body.style.overflow = '';
 }
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
+    const name = document.getElementById('formName').value.trim();
+    const phone = document.getElementById('formPhone').value.trim();
+    const message = document.getElementById('formMessage').value.trim();
+    const btn = this.querySelector('.form-submit');
+    btn.disabled = true;
+    btn.textContent = 'Відправляємо...';
+    const text = `📩 Нова заявка з портфоліо\n\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}\n💬 Повідомлення: ${message}`;
+    try {
+        await fetch('https://api.telegram.org/bot8697583526:AAEEUzYOqTaQoId4S7_-pn7MtHpgS9oG85w/sendMessage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: '5571690861', text })
+        });
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+    } catch {
+        btn.disabled = false;
+        btn.textContent = 'Надіслати';
+        alert('Помилка відправки. Напишіть нам напряму.');
+    }
 });
 </script>
 </body>
