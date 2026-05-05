@@ -532,7 +532,7 @@
                         <label>Опишіть задачу</label>
                         <textarea class="form-control" placeholder="Що потрібно автоматизувати?" id="formMessage" required></textarea>
                     </div>
-                    <button type="submit" class="form-submit">Надіслати →</button>
+                    <button type="button" class="form-submit" onclick="sendForm()">Надіслати →</button>
                 </form>
                 <div class="form-success" id="formSuccess">✓ Заявку надіслано! Відповімо найближчим часом.</div>
             </div>
@@ -564,29 +564,36 @@ function closeMenu() {
     document.getElementById('drawerOverlay').classList.remove('open');
     document.body.style.overflow = '';
 }
-document.getElementById('contactForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
+async function sendForm() {
     const name = document.getElementById('formName').value.trim();
     const phone = document.getElementById('formContact').value.trim();
     const message = document.getElementById('formMessage').value.trim();
-    const btn = this.querySelector('.form-submit');
+    if (!name || !phone || !message) {
+        alert('Заповніть всі поля');
+        return;
+    }
+    const btn = document.querySelector('.form-submit');
     btn.disabled = true;
     btn.textContent = 'Відправляємо...';
     const text = `📩 Нова заявка з портфоліо\n\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}\n💬 Повідомлення: ${message}`;
     try {
-        await fetch('https://api.telegram.org/bot8697583526:AAEEUzYOqTaQoId4S7_-pn7MtHpgS9oG85w/sendMessage', {
+        const res = await fetch('https://api.telegram.org/bot8697583526:AAEEUzYOqTaQoId4S7_-pn7MtHpgS9oG85w/sendMessage', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ chat_id: '5571690861', text })
         });
-        document.getElementById('contactForm').style.display = 'none';
-        document.getElementById('formSuccess').style.display = 'block';
-    } catch {
+        if (res.ok) {
+            document.getElementById('contactForm').style.display = 'none';
+            document.getElementById('formSuccess').style.display = 'block';
+        } else {
+            throw new Error('bad response');
+        }
+    } catch(err) {
         btn.disabled = false;
-        btn.textContent = 'Надіслати';
-        alert('Помилка відправки. Напишіть нам напряму.');
+        btn.textContent = 'Надіслати →';
+        alert('Помилка відправки. Напишіть нам напряму в Telegram.');
     }
-});
+}
 </script>
 </body>
 </html>
